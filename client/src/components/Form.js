@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
+import axios from 'axios';
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { toast } from 'react-toastify';
 
 const FormContainer = styled.form`
     display:flex;
@@ -36,11 +38,67 @@ const Button = styled.button`
     height: 42px;
 `;
 
-const Form = ({ onEdit }) => {
-    const ref = useRef();
+const Form = ({ getUsers, onEdit, setOnEdit }) => {
+    const refForm = useRef();
+
+    useEffect(() => {
+        if (onEdit) {
+            const user = refForm.current;
+
+            user.name.value = onEdit.name;
+            user.email.value = onEdit.email;
+            user.phone.value = onEdit.phone;
+            user.birthday.value = onEdit.birthday;
+        }
+    }, [onEdit]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const user = refForm.current;
+
+        if (
+            !user.name.value ||
+            !user.email.value ||
+            !user.phone.value ||
+            !user.birthday.value
+        ) {
+            return toast.warn("Fill in all fields on the form")
+        }
+
+        if (onEdit) {
+            await axios
+            .put("http://localhost:8800/" + onEdit.id, {
+                name: user.name.value,
+                email: user.email.value,
+                phone: user.phone.value,
+                birthday: user.birthday.value
+            })
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data));
+        } else {
+            await 
+            axios.post("http://localhost:8800/", {
+                name: user.name.value,
+                email: user.email.value,
+                phone: user.phone.value,
+                birthday: user.birthday.value
+            })
+            .then(({ data }) => toast.success(data))
+            .catch(({ data }) => toast.error(data));
+        }
+
+        user.name.value = "";
+        user.email.value = "";
+        user.phone.value = "";
+        user.birthday.value = "";
+
+        setOnEdit(null);
+        getUsers();
+    }
 
     return(
-        <FormContainer ref={ref}>
+        <FormContainer ref={refForm} onSubmit={handleSubmit}>
             <InputArea>
                 <Label>Name</Label>
                 <Input name="name"/>
