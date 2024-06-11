@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `my_first_project` 
+CREATE DATABASE  IF NOT EXISTS `my_first_project`; 
 USE `my_first_project`;
 
 
