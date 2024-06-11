@@ -11,7 +11,7 @@ CREATE TABLE `users` (
   `phone` varchar(45) DEFAULT NULL,
   `birthday` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
 LOCK TABLES `users` WRITE;
