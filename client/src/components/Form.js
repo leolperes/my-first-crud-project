@@ -68,7 +68,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 
         if (onEdit) {
             await axios
-            .put("http://localhost:8800/" + onEdit.id, {
+            .put("http://teste.leonardo.l.p.vms.ufsc.br:8800/" + onEdit.id, {
                 name: user.name.value,
                 email: user.email.value,
                 phone: user.phone.value,
@@ -78,7 +78,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
             .catch(({ data }) => toast.error(data));
         } else {
             await 
-            axios.post("http://localhost:8800/", {
+            axios.post("http://teste.leonardo.l.p.vms.ufsc.br:8800/", {
                 name: user.name.value,
                 email: user.email.value,
                 phone: user.phone.value,
