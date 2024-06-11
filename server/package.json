@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "npm install --production && npm run copy-files",
+    "copy-files": "mkdir -p dist && cp -r src/* dist/"
   },
   "keywords": [],
   "author": "",
